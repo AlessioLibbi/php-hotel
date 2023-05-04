@@ -39,6 +39,8 @@ $hotels = [
     ],
 
 ];
+$park = $_GET["parking"];
+$votes = $_GET["vote"];
 
 ?>
 
@@ -58,13 +60,13 @@ $hotels = [
     <div class="container my-5">
 
         <h1>HOTELS</h1>
-        <form action="index.php">
+        <form method="GET" action="index.php">
             <div class="input-group mb-5">
 
                 <select name="parking" class="form-select rounded-3 text-center" aria-label="Default select example">
                     <option selected>All</option>
-                    <option value="1">Parking</option>
-                    <option value="2">No Parking</option>
+                    <option value="true">Parking</option>
+                    <option value="false">No Parking</option>
 
                 </select>
                 <select name="vote" class="form-select rounded-3 text-center" aria-label="Default select example">
@@ -75,7 +77,7 @@ $hotels = [
                     <option value="4">Two</option>
                     <option value="5">Three</option>
                 </select>
-                <button class="btn border-black" type="">Dio nano</button>
+                <button class="btn border-black" type="submit">Search</button>
             </div>
         </form>
 
@@ -89,21 +91,66 @@ $hotels = [
                     <th scope="col">Distance</th>
                 </tr>
             </thead>
-            <tbody>
-                <?php foreach ($hotels as $hotel) { ?>
-                    <tr>
-                        <?php foreach ($hotel as $key => $item) { ?>
-                            <td>
-                                <?php if ($item === true) {
-                                    echo "Parcheggio";
-                                } elseif ($item === false) {
-                                    echo "No Parcheggio";
-                                } else echo $item ?>
-                            </td>
-                        <?php } ?>
-                    </tr>
-                <?php } ?>
-            </tbody>
+            <?php if ($park === "true") { ?>
+                <tbody>
+                    <?php foreach ($hotels as $hotel) { ?>
+                        <tr>
+
+                            <?php foreach ($hotel as $key => $item) {
+                                if ($hotel["parking"] === true) { ?>
+                                    <td>
+                                        <?php if ($item === true) {
+                                            echo "Parcheggio";
+                                        } elseif ($item === false) {
+                                            echo "No Parcheggio";
+                                        } else echo $item ?>
+                                    </td>
+                            <?php }
+                            } ?>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            <?php } elseif ($park === "false") { ?>
+                <tbody>
+                    <?php foreach ($hotels as $hotel) { ?>
+                        <tr>
+
+                            <?php foreach ($hotel as $key => $item) {
+                                if ($hotel["parking"] === false) {
+                            ?>
+                                    <td>
+                                        <?php if ($item === true) {
+                                            echo "Parcheggio";
+                                        } elseif ($item === false) {
+                                            echo "No Parcheggio";
+                                        } else echo $item ?>
+                                    </td>
+                            <?php }
+                            } ?>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            <?php } else { ?>
+                <tbody>
+                    <?php foreach ($hotels as $hotel) { ?>
+                        <tr>
+
+                            <?php foreach ($hotel as $key => $item) {
+
+                            ?>
+                                <td>
+                                    <?php if ($item === true) {
+                                        echo "Parcheggio";
+                                    } elseif ($item === false) {
+                                        echo "No Parcheggio";
+                                    } else echo $item ?>
+                                </td>
+                            <?php
+                            } ?>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            <?php } ?>
         </table>
     </div>
 </body>
