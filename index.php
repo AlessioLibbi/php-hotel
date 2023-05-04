@@ -70,12 +70,12 @@ $votes = $_GET["vote"];
 
                 </select>
                 <select name="vote" class="form-select rounded-3 text-center" aria-label="Default select example">
-                    <option selected>All</option>
+                    <option value="all" selected>All</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
-                    <option value="4">Two</option>
-                    <option value="5">Three</option>
+                    <option value="4">Four</option>
+                    <option value="5">Five</option>
                 </select>
                 <button class="btn border-black" type="submit">Search</button>
             </div>
@@ -97,15 +97,19 @@ $votes = $_GET["vote"];
                         <tr>
 
                             <?php foreach ($hotel as $key => $item) {
-                                if ($hotel["parking"] === true) { ?>
-                                    <td>
-                                        <?php if ($item === true) {
-                                            echo "Parcheggio";
-                                        } elseif ($item === false) {
-                                            echo "No Parcheggio";
-                                        } else echo $item ?>
-                                    </td>
-                            <?php }
+                                if ($hotel["parking"] === true) {
+                                    if ($hotel['vote'] == $votes || $votes == 'all') {
+                            ?>
+                                        <td>
+                                            <?php if ($item === true) {
+                                                echo "Parcheggio";
+                                            } elseif ($item === false) {
+                                                echo "No Parcheggio";
+                                            } else echo $item ?>
+                                        </td>
+                            <?php
+                                    }
+                                }
                             } ?>
                         </tr>
                     <?php } ?>
@@ -117,15 +121,17 @@ $votes = $_GET["vote"];
 
                             <?php foreach ($hotel as $key => $item) {
                                 if ($hotel["parking"] === false) {
+                                    if ($hotel['vote'] == $votes || $votes == 'all') {
                             ?>
-                                    <td>
-                                        <?php if ($item === true) {
-                                            echo "Parcheggio";
-                                        } elseif ($item === false) {
-                                            echo "No Parcheggio";
-                                        } else echo $item ?>
-                                    </td>
+                                        <td>
+                                            <?php if ($item === true) {
+                                                echo "Parcheggio";
+                                            } elseif ($item === false) {
+                                                echo "No Parcheggio";
+                                            } else echo $item ?>
+                                        </td>
                             <?php }
+                                }
                             } ?>
                         </tr>
                     <?php } ?>
@@ -136,16 +142,17 @@ $votes = $_GET["vote"];
                         <tr>
 
                             <?php foreach ($hotel as $key => $item) {
+                                if ($hotel['vote'] == $votes ||  $votes == 'all' || !isset($_GET["vote"])) {
 
                             ?>
-                                <td>
-                                    <?php if ($item === true) {
-                                        echo "Parcheggio";
-                                    } elseif ($item === false) {
-                                        echo "No Parcheggio";
-                                    } else echo $item ?>
-                                </td>
-                            <?php
+                                    <td>
+                                        <?php if ($item === true) {
+                                            echo "Parcheggio";
+                                        } elseif ($item === false) {
+                                            echo "No Parcheggio";
+                                        } else echo $item ?>
+                                    </td>
+                            <?php }
                             } ?>
                         </tr>
                     <?php } ?>
